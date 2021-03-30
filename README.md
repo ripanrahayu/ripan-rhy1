@@ -41,7 +41,7 @@
 
 Saya is a simple solution to your group management needs, purely weeab themed.
 
-* Bot Link:  <a href="https://t.me/SayaAman_bot" alt="Saya Bot"> <img src="https://img.shields.io/badge/%F0%9F%A4%96%20-SaitamaRobot-blue" /> </a>
+* Bot Link:  <a href="https://t.me/SayaAman_bot" alt="Saya Bot"> <img src="https://t.me/SayaBotSupport/467" /> </a>
 * News channel: <a  href="https://t.me/OnePunchUpdates" alt="One Punch Updates"> <img  src="https://img.shields.io/badge/%F0%9F%92%A1-One%20Punch%20Updates-9cf" /> </a>
 
 Should you be forking this repo then do not forget to star it - <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/animekaizoku/saitamarobot?color=white&label=%F0%9F%8C%9F%20star">
