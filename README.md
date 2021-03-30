@@ -41,7 +41,7 @@
 
 Saya is a simple solution to your group management needs, purely weeab themed.
 
-* Bot Link:  https://t.me/SayaAman_bot
+* Bot Link:  [SayaBot](https://t.me/SayaAman_bot)
 
 Should you be forking this repo then do not forget to star it - <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/animekaizoku/saitamarobot?color=white&label=%F0%9F%8C%9F%20star">
 
