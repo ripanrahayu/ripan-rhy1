@@ -158,6 +158,7 @@ def new_member(update: Update, context: CallbackContext):
     should_welc, cust_welcome, cust_content, welc_type = sql.get_welc_pref(chat.id)
     welc_mutes = sql.welcome_mutes(chat.id)
     human_checks = sql.get_human_checks(user.id, chat.id)
+    defense = sql.getDefenseStatus(str(chat.id))
 
     new_members = update.effective_message.new_chat_members
 
@@ -169,6 +170,10 @@ def new_member(update: Update, context: CallbackContext):
         should_mute = True
         welcome_bool = True
         media_wel = False
+
+        if defense:
+            bantime = int(time.time()) + 60
+            chat.kick_member(new_mem.id, until_date=bantime)
 
         if sw is not None:
             sw_ban = sw.get_ban(new_mem.id)
@@ -294,6 +299,10 @@ def new_member(update: Update, context: CallbackContext):
                     "Watashi ga kita!", reply_to_message_id=reply
                 )
                 continue
+
+            elif defense and (user.id not in DRAGONS + DEMONS):
+                bantime = int(time.time()) + 60
+                chat.kick_member(new_mem.id, until_date=bantime)
 
             else:
                 buttons = sql.get_welc_buttons(chat.id)
@@ -1059,6 +1068,44 @@ def welcome_help(update: Update, context: CallbackContext):
     update.effective_message.reply_text(WELC_HELP_TXT, parse_mode=ParseMode.MARKDOWN)
 
 
+@user_admin
+def setDefense(update: Update, context: CallbackContext):
+    bot = context.bot
+    args = context.args
+    chat = update.effective_chat
+    msg = update.effective_message
+    if len(args) != 1:
+        msg.reply_text("Invalid arguments!")
+        return
+    param = args[0]
+    if param == "on" or param == "true":
+        sql.setDefenseStatus(chat.id, True)
+        msg.reply_text(
+            "Defense mode has been turned on, this group is under attack. Every user that now joins will be auto kicked."
+        )
+        return
+    elif param == "off" or param == "false":
+        sql.setDefenseStatus(chat.id, False)
+        msg.reply_text(
+            "Defense mode has been turned off, group is no longer under attack."
+        )
+        return
+    else:
+        msg.reply_text("Invalid status to set!")  #on or off ffs
+        return
+
+
+@user_admin
+def getDefense(update: Update, context: CallbackContext):
+    bot = context.bot
+    chat = update.effective_chat
+    msg = update.effective_message
+    stat = sql.getDefenseStatus(chat.id)
+    text = "<b>Defense Status</b>\n\nCurrently, this group has the defense setting set to: <b>{}</b>".format(
+        stat)
+    msg.reply_text(text, parse_mode=ParseMode.HTML)
+
+
 @run_async
 @user_admin
 def welcome_mute_help(update: Update, context: CallbackContext):
@@ -1104,10 +1151,11 @@ __help__ = """
  • `/resetgoodbye`*:* reset to the default goodbye message.
  • `/cleanwelcome <on/off>`*:* On new member, try to delete the previous welcome message to avoid spamming the chat.
  • `/welcomemutehelp`*:* gives information about welcome mutes.
- • `/cleanservice <on/off`*:* deletes telegrams welcome/left service messages. 
+ • `/cleanservice <on/off>`*:* deletes telegrams welcome/left service messages. 
+ • `/setdefense <on/off/true/false>`*:* Turns on defense mode, will kick any new user automatically.
+ • `/defense`*:* gets the current defense setting
  *Example:*
 user joined chat, user left chat.
-
 *Welcome markdown:* 
  • `/welcomehelp`*:* view more formatting information for custom welcome/goodbye messages.
 """
@@ -1128,6 +1176,8 @@ CLEAN_WELCOME = CommandHandler("cleanwelcome", clean_welcome, filters=Filters.gr
 WELCOME_HELP = CommandHandler("welcomehelp", welcome_help)
 WELCOME_MUTE_HELP = CommandHandler("welcomemutehelp", welcome_mute_help)
 BUTTON_VERIFY_HANDLER = CallbackQueryHandler(user_button, pattern=r"user_join_")
+DEFENSE_HANDLER = CommandHandler("setdefense", setDefense, filters=Filters.group)
+GETDEF_HANDLER = CommandHandler("defense", getDefense, filters=Filters.group)
 
 dispatcher.add_handler(NEW_MEM_HANDLER)
 dispatcher.add_handler(LEFT_MEM_HANDLER)
@@ -1143,6 +1193,8 @@ dispatcher.add_handler(WELCOMEMUTE_HANDLER)
 dispatcher.add_handler(CLEAN_SERVICE_HANDLER)
 dispatcher.add_handler(BUTTON_VERIFY_HANDLER)
 dispatcher.add_handler(WELCOME_MUTE_HELP)
+dispatcher.add_handler(DEFENSE_HANDLER)
+dispatcher.add_handler(GETDEF_HANDLER)
 
 __mod_name__ = "Greetings"
 __command_list__ = []
