@@ -1,3 +1,4 @@
-worker: python3 -m SaitamaRobot
-web: python3 -m SaitamaRobot
+worker: python3 -m SayaBot
+web: python3 -m SayaBot
 ps:scale worker=1
+
