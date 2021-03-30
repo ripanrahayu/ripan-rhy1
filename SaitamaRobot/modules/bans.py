@@ -64,7 +64,7 @@ def ban(update: Update, context: CallbackContext) -> str:
 
     if is_user_ban_protected(chat, user_id, member) and user not in DEV_USERS:
         if user_id == OWNER_ID:
-            message.reply_text("Trying to put me against a God level disaster huh?")
+            message.reply_text("Trying to put me against my creator, huh? Nice try")
         elif user_id in DEV_USERS:
             message.reply_text("I can't act against our own.")
         elif user_id in DRAGONS:
@@ -260,7 +260,7 @@ def punch(update: Update, context: CallbackContext) -> str:
         return log_message
 
     if is_user_ban_protected(chat, user_id):
-        message.reply_text("I really wish I could punch this user....")
+        message.reply_text("I really wish I could kick this user (Ծ‸ Ծ)")
         return log_message
 
     res = chat.unban_member(user_id)  # unban on current user = kick
@@ -268,7 +268,7 @@ def punch(update: Update, context: CallbackContext) -> str:
         # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
         bot.sendMessage(
             chat.id,
-            f"One Punched! {mention_html(member.user.id, html.escape(member.user.first_name))}.",
+            f"Get out {mention_html(member.user.id, html.escape(member.user.first_name))}, B-baka!! .",
             parse_mode=ParseMode.HTML,
         )
         log = (
@@ -283,7 +283,7 @@ def punch(update: Update, context: CallbackContext) -> str:
         return log
 
     else:
-        message.reply_text("Well damn, I can't punch that user.")
+        message.reply_text("Well damn, I can't kick that user.")
 
     return log_message
 
@@ -299,7 +299,7 @@ def punchme(update: Update, context: CallbackContext):
 
     res = update.effective_chat.unban_member(user_id)  # unban on current user = kick
     if res:
-        update.effective_message.reply_text("*punches you out of the group*")
+        update.effective_message.reply_text("No problem *kicked*")
     else:
         update.effective_message.reply_text("Huh? I can't :/")
 
@@ -399,22 +399,21 @@ def selfunban(context: CallbackContext, update: Update) -> str:
 
 
 __help__ = """
- • `/punchme`*:* punchs the user who issued the command
-
+  • `/kickme`*:* kicks the user who issued the command
 *Admins only:*
  • `/ban <userhandle>`*:* bans a user. (via handle, or reply)
  • `/sban <userhandle>`*:* Silently ban a user. Deletes command, Replied message and doesn't reply. (via handle, or reply)
  • `/tban <userhandle> x(m/h/d)`*:* bans a user for `x` time. (via handle, or reply). `m` = `minutes`, `h` = `hours`, `d` = `days`.
  • `/unban <userhandle>`*:* unbans a user. (via handle, or reply)
- • `/punch <userhandle>`*:* Punches a user out of the group, (via handle, or reply)
+ • `/kick <userhandle>`*:* Kicks a user out of the group, (via handle, or reply)
 """
 
 BAN_HANDLER = CommandHandler(["ban", "sban"], ban)
 TEMPBAN_HANDLER = CommandHandler(["tban"], temp_ban)
-PUNCH_HANDLER = CommandHandler("punch", punch)
+PUNCH_HANDLER = CommandHandler("kick", punch)
 UNBAN_HANDLER = CommandHandler("unban", unban)
 ROAR_HANDLER = CommandHandler("roar", selfunban)
-PUNCHME_HANDLER = DisableAbleCommandHandler("punchme", punchme, filters=Filters.group)
+PUNCHME_HANDLER = DisableAbleCommandHandler("kickme", punchme, filters=Filters.group)
 
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
