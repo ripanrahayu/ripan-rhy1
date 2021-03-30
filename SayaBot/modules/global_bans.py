@@ -97,26 +97,26 @@ def gban(update: Update, context: CallbackContext):
 
     if int(user_id) in DRAGONS:
         message.reply_text(
-            "I spy, with my little eye... a disaster! Why are you guys turning on each other?"
+            "I spy, with my little eye... a Sudo Union member! Why are you guys turning on each other?"
         )
         return
 
     if int(user_id) in DEMONS:
         message.reply_text(
-            "OOOH someone's trying to gban a Demon Disaster! *grabs popcorn*"
+            "OOOH someone's trying to gban a Support Union member! *grabs popcorn*"
         )
         return
 
     if int(user_id) in TIGERS:
-        message.reply_text("That's a Tiger! They cannot be banned!")
+        message.reply_text("That's a weirdo, I don't know why my bot owner even made this union...")
         return
 
     if int(user_id) in WOLVES:
-        message.reply_text("That's a Wolf! They cannot be banned!")
+        message.reply_text("That's a member of the Immunity Union! They cannot be banned!")
         return
 
     if user_id == bot.id:
-        message.reply_text("You uhh...want me to punch myself?")
+        message.reply_text("You uhh...want me to gban myself?")
         return
 
     if user_id in [777000, 1087968824]:
@@ -571,4 +571,5 @@ __handlers__ = [GBAN_HANDLER, UNGBAN_HANDLER, GBAN_LIST, GBAN_STATUS]
 if STRICT_GBAN:  # enforce GBANS if this is set
     dispatcher.add_handler(GBAN_ENFORCER, GBAN_ENFORCE_GROUP)
     __handlers__.append((GBAN_ENFORCER, GBAN_ENFORCE_GROUP))
+
 

@@ -220,7 +220,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Sudos
             elif new_mem.id in DRAGONS:
                 update.effective_message.reply_text(
-                    "Whoa! A Dragon disaster just joined! Stay Alert!",
+                    "Whoa! A Sudo Union member just joined! Stay Alert!",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
@@ -233,7 +233,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Support
             elif new_mem.id in DEMONS:
                 update.effective_message.reply_text(
-                    "Huh! Someone with a Demon disaster level just joined!",
+                    "Huh! Someone with in Support Union just joined!",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
@@ -246,7 +246,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Whitelisted
             elif new_mem.id in TIGERS:
                 update.effective_message.reply_text(
-                    "Roar! A Tiger disaster just joined!", reply_to_message_id=reply
+                    "Roar! A weirdo just joined!", reply_to_message_id=reply
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -258,7 +258,7 @@ def new_member(update: Update, context: CallbackContext):
             # Welcome Tigers
             elif new_mem.id in WOLVES:
                 update.effective_message.reply_text(
-                    "Awoo! A Wolf disaster just joined!", reply_to_message_id=reply
+                    "Oof! An Immunity Union member just joined!", reply_to_message_id=reply
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
@@ -1214,4 +1214,5 @@ __handlers__ = [
     BUTTON_VERIFY_HANDLER,
     WELCOME_MUTE_HELP,
 ]
+
 

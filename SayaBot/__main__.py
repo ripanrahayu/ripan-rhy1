@@ -198,8 +198,8 @@ def start(update: Update, context: CallbackContext):
                 )
             elif args[0].lower() == "markdownhelp":
                 IMPORTED["extras"].markdown_help_sender(update)
-            elif args[0].lower() == "disasters":
-                IMPORTED["disasters"].send_disasters(update)
+            elif args[0].lower() == "unions":
+                IMPORTED["unions"].send_unions(update)
             elif args[0].lower().startswith("stngs_"):
                 match = re.match("stngs_(.*)", args[0].lower())
                 chat = dispatcher.bot.getChat(match.group(1))
@@ -691,4 +691,5 @@ if __name__ == "__main__":
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
     main()
+
 

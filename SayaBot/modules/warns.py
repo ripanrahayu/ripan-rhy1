@@ -69,10 +69,10 @@ def warn(
 
     if user.id in WOLVES:
         if warner:
-            message.reply_text("Wolf disasters are warn immune.")
+            message.reply_text("Immunity Union members are warn immune, duh!")
         else:
             message.reply_text(
-                "Wolf Disaster triggered an auto warn filter!\nI can't warn wolves but they should avoid abusing this."
+                "An Immunity Union member triggered an auto warn filter!\nI can't them but they should avoid abusing this."
             )
         return
 
@@ -547,4 +547,5 @@ dispatcher.add_handler(LIST_WARN_HANDLER)
 dispatcher.add_handler(WARN_LIMIT_HANDLER)
 dispatcher.add_handler(WARN_STRENGTH_HANDLER)
 dispatcher.add_handler(WARN_FILTER_HANDLER, WARN_HANDLER_GROUP)
+
 

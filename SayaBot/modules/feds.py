@@ -609,7 +609,7 @@ def fed_ban(update: Update, context: CallbackContext):
         return
 
     if user_id == OWNER_ID:
-        message.reply_text("Disaster level God cannot be fed banned!")
+        message.reply_text("I won't fed ban my bot creator, nice try though!")
         return
 
     if int(user_id) in DRAGONS:
@@ -2471,4 +2471,5 @@ dispatcher.add_handler(DELETEBTN_FED_HANDLER)
 dispatcher.add_handler(FED_OWNER_HELP_HANDLER)
 dispatcher.add_handler(FED_ADMIN_HELP_HANDLER)
 dispatcher.add_handler(FED_USER_HELP_HANDLER)
+
 

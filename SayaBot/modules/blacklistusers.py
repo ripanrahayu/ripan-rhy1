@@ -43,7 +43,7 @@ def bl_user(update: Update, context: CallbackContext) -> str:
         return ""
 
     if user_id in BLACKLISTWHITELIST:
-        message.reply_text("No!\nNoticing Disasters is my job.")
+        message.reply_text("No!\nNoticing Unions is my job.")
         return ""
 
     try:
@@ -167,4 +167,5 @@ dispatcher.add_handler(BLUSERS_HANDLER)
 
 __mod_name__ = "Blacklisting Users"
 __handlers__ = [BL_HANDLER, UNBL_HANDLER, BLUSERS_HANDLER]
+
 

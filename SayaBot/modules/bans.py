@@ -69,18 +69,18 @@ def ban(update: Update, context: CallbackContext) -> str:
             message.reply_text("I can't act against our own.")
         elif user_id in DRAGONS:
             message.reply_text(
-                "Fighting this Dragon here will put civilian lives at risk."
+                "Trying to ban a member of the Dev Union are you serious? It won't work."
             )
         elif user_id in DEMONS:
             message.reply_text(
-                "Bring an order from Heroes association to fight a Demon disaster."
+                "Can't ban users in the Support Union, c'mon."
             )
         elif user_id in TIGERS:
             message.reply_text(
-                "Bring an order from Heroes association to fight a Tiger disaster."
+                "This guy is a weirdo, but I can't ban them."
             )
         elif user_id in WOLVES:
-            message.reply_text("Wolf abilities make them ban immune!")
+            message.reply_text("I really wish I could ban users of the Immunity Union")
         else:
             message.reply_text("This user has immunity and cannot be banned.")
         return log_message
@@ -431,4 +431,5 @@ __handlers__ = [
     ROAR_HANDLER,
     PUNCHME_HANDLER,
 ]
+
 
