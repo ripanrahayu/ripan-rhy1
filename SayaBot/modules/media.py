@@ -13,8 +13,10 @@ __help__ = """
  • `/reverse`: does a *reverse image search* of the media which it was replied to\n
 *Text to speech:*
  • `/tts <text>`: convert text to speech\n
-*Youtube:*
- • `/youtube`, `/yt` `<song or video name>`: download songs or videos from youtube in standar quality
+*Song:*
+ • `/song <song or video name>`: download songs from youtube in standard quality
+*Video:*
+ • `/video <song or video name>`: download videos from youtube in standard quality
 """
 
 __mod_name__ = "Media"
