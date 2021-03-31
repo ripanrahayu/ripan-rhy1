@@ -1,5 +1,4 @@
 # Thanks to @p_rinc_e
-# Thanks to AstrakoBot
 from pathlib import Path
 import asyncio, time, io, math, os, glob, logging, asyncio, shutil, re, subprocess, json
 from re import findall
@@ -99,7 +98,7 @@ async def process(v_url, dtype, opts):
 
     if dtype == "song":
 
-        if int(rip_data["duration"] / 60) > 30:
+        if int(rip_data["duration"] / 60) > 60:
             await rkp.edit("`Song is too long for processing.`")
             return
 
@@ -126,7 +125,7 @@ async def process(v_url, dtype, opts):
 
     else:
 
-        if int(rip_data["duration"] / 60) > 10:
+        if int(rip_data["duration"] / 60) > 60:
             await rkp.edit("`Video is too long for processing.`")
             return
 
