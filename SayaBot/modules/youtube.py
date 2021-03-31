@@ -8,7 +8,7 @@ from youtubesearchpython import SearchVideos
 
 from youtube_dl import YoutubeDL
 
-
+@run_async
 def youtube(update: Update, context: CallbackContext):
     bot = context.bot
     message = update.effective_message
