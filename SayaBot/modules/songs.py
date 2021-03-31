@@ -1,4 +1,5 @@
 # Thanks to @p_rinc_e
+# Thanks to github.com/Astrako/AstrakoBot
 from pathlib import Path
 import asyncio, time, io, math, os, glob, logging, asyncio, shutil, re, subprocess, json
 from re import findall
