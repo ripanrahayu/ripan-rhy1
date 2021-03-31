@@ -134,9 +134,7 @@ def youtube_callback(update: Update, context: CallbackContext):
 
 
 YOUTUBE_HANDLER = DisableAbleCommandHandler(["youtube", "yt"], youtube, run_async = True)
-YOUTUBE_CALLBACKHANDLER = CallbackQueryHandler(
-    youtube_callback, pattern="youtube*", run_async=True
-)
+YOUTUBE_CALLBACKHANDLER = CallbackQueryHandler(youtube_callback, pattern="youtube*")
 dispatcher.add_handler(YOUTUBE_HANDLER)
 dispatcher.add_handler(YOUTUBE_CALLBACKHANDLER)
 
