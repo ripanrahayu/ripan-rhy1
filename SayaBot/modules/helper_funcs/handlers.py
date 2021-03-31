@@ -59,15 +59,13 @@ MessageHandlerChecker = AntiSpam()
 
 
 class CustomCommandHandler(CommandHandler):
-    def __init__(self, command, callback, admin_ok=False, allow_edit=False, run_async=True, **kwargs):
+    def __init__(self, command, callback, admin_ok=False, allow_edit=False, **kwargs):
         super().__init__(command, callback, **kwargs)
 
         if allow_edit is False:
             self.filters &= ~(
                 Filters.update.edited_message | Filters.update.edited_channel_post
             )
-
-        self.run_async = run_async
 
     def check_update(self, update):
         if isinstance(update, Update) and update.effective_message:
@@ -107,19 +105,13 @@ class CustomCommandHandler(CommandHandler):
                         return False
 
     def handle_update(self, update, dispatcher, check_result, context=None):
-        run_async = self.run_async
         if context:
             self.collect_additional_context(context, update, dispatcher, check_result)
-            if run_async:
-                return dispatcher.run_async(self.callback, update, context, update=update)
             return self.callback(update, context)
+        else:
+            optional_args = self.collect_optional_args(dispatcher, update, check_result)
+            return self.callback(dispatcher.bot, update, **optional_args)
 
-        optional_args = self.collect_optional_args(dispatcher, update, check_result)
-        if run_async:
-            return dispatcher.run_async(
-                self.callback, dispatcher.bot, update, update=update, **optional_args
-            )
-        return self.callback(dispatcher.bot, update, **optional_args)  # type: ignore
     def collect_additional_context(self, context, update, dispatcher, check_result):
         if isinstance(check_result, bool):
             context.args = update.effective_message.text.split()[1:]
@@ -145,5 +137,3 @@ class CustomMessageHandler(MessageHandler):
         def check_update(self, update):
             if isinstance(update, Update) and update.effective_message:
                 return self.filters(update)
-
-
