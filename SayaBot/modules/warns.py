@@ -60,19 +60,19 @@ def warn(
 
     if user.id in TIGERS:
         if warner:
-            message.reply_text("Tigers cant be warned.")
+            message.reply_text("Mars Solar Union members cant be warned.")
         else:
             message.reply_text(
-                "Tiger triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
+                "A Mars Solar Union member triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
             )
         return
 
     if user.id in WOLVES:
         if warner:
-            message.reply_text("Immunity Union members are warn immune, duh!")
+            message.reply_text("Jupiter Solar Union members are warn immune, duh!")
         else:
             message.reply_text(
-                "An Immunity Union member triggered an auto warn filter!\nI can't them but they should avoid abusing this."
+                "A Jupiter Solar Union member triggered an auto warn filter!\nI can't them but they should avoid abusing this."
             )
         return
 
@@ -547,5 +547,6 @@ dispatcher.add_handler(LIST_WARN_HANDLER)
 dispatcher.add_handler(WARN_LIMIT_HANDLER)
 dispatcher.add_handler(WARN_STRENGTH_HANDLER)
 dispatcher.add_handler(WARN_FILTER_HANDLER, WARN_HANDLER_GROUP)
+
 
 

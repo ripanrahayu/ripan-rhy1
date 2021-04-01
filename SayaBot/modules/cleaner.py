@@ -227,7 +227,7 @@ Blue text cleaner removed any made up commands that people send in your chat.
  • `/unignoreblue <word>`*:* remove prevent auto cleaning of the command
  • `/listblue`*:* list currently whitelisted commands
  
- *Following are Union only commands, admins cannot use these:*
+ *Following are Solar Union only commands, admins cannot use these:*
  • `/gignoreblue <word>`*:* globally ignorea bluetext cleaning of saved word across Saitama.
  • `/ungignoreblue <word>`*:* remove said command from global cleaning list
 """
@@ -264,5 +264,6 @@ __handlers__ = [
     LIST_CLEAN_BLUE_TEXT_HANDLER,
     (CLEAN_BLUE_TEXT_HANDLER, BLUE_TEXT_CLEAN_GROUP),
 ]
+
 
 

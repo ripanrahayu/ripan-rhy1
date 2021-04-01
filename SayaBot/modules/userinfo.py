@@ -287,22 +287,22 @@ def info(update: Update, context: CallbackContext):
     union_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nThe Union level of this person is 'God'."
+        text += "\n\nThe Solar Union level of this person is 'Sun'."
         union_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Dev Union'."
+        text += "\n\nThe Solar Union level of this person is 'Mercury'.."
         union_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nThe Union level of this person is 'Sudo'."
+        text += "\n\nThe Solar Union level of this person is 'Venus'."
         union_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nThe Union level of this person is 'Support'."
+        text += "\n\nThe Solar Union level of this person is 'Earth'."
         union_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nThe Union level of this person is 'Weirdo'."
+        text += "\n\nThe Solar Union level of this person is 'Mars'."
         union_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nThe Union level of this person is 'Immunity'."
+        text += "\n\nThe Solar Union level of this person is 'Jupiter'."
         union_level_present = True
 
     if union_level_present:
@@ -479,7 +479,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Union members to set my bio."
+                "Erm... yeah, I only trust Solar Union members to set my bio."
             )
             return
 
@@ -574,5 +574,6 @@ __handlers__ = [
     GET_ABOUT_HANDLER,
     STATS_HANDLER,
 ]
+
 
 

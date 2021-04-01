@@ -73,16 +73,16 @@ def addsudo(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        message.reply_text("This member is already a Sudo Union member")
+        message.reply_text("This member is already a Venus Solar Union member")
         return ""
 
     if user_id in DEMONS:
-        rt += "Requested HA to promote a Support Union member to Sudo."
+        rt += "Requested HA to promote a Earth Solar Union member to Venus."
         data["supports"].remove(user_id)
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        rt += "Requested HA to promote an Immunity Union member to Sudo."
+        rt += "Requested HA to promote a Jupiter Solar Union member to Venus."
         data["whitelists"].remove(user_id)
         WOLVES.remove(user_id)
 
@@ -94,13 +94,13 @@ def addsudo(update: Update, context: CallbackContext) -> str:
 
     update.effective_message.reply_text(
         rt
-        + "\nSuccessfully set Disaster level of {} to Sudo!".format(
+        + "\nSuccessfully set Disaster level of {} to Venus!".format(
             user_member.first_name
         )
     )
 
     log_message = (
-        f"#SUDO\n"
+        f"#Venus\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -135,16 +135,16 @@ def addsupport(
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        rt += "Requested HA to demote this Sudo Union member to Support"
+        rt += "Requested HA to demote this Venus Solar Union member to Earth"
         data["sudos"].remove(user_id)
         DRAGONS.remove(user_id)
 
     if user_id in DEMONS:
-        message.reply_text("This user is already a Support Union member.")
+        message.reply_text("This user is already a Earth Solar Union member.")
         return ""
 
     if user_id in WOLVES:
-        rt += "Requested HA to promote this Immunity Union member to Support"
+        rt += "Requested HA to promote this Jupiter Solar Union member to Earth"
         data["whitelists"].remove(user_id)
         WOLVES.remove(user_id)
 
@@ -155,11 +155,11 @@ def addsupport(
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + f"\n{user_member.first_name} was added to Suport Union!"
+        rt + f"\n{user_member.first_name} was added to Suport Solar Union!"
     )
 
     log_message = (
-        f"#SUPPORT\n"
+        f"#EARTH\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -191,17 +191,17 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        rt += "This member is a Sudo Union member, Demoting to Immunity."
+        rt += "This member is a Venus Solar Union member, Demoting to Jupiter."
         data["sudos"].remove(user_id)
         DRAGONS.remove(user_id)
 
     if user_id in DEMONS:
-        rt += "This user is already a Support Union member, Demoting to Immunity."
+        rt += "This user is already a Earth Solar Union member, Demoting to Jupiter."
         data["supports"].remove(user_id)
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        message.reply_text("This user is already an Immunity Union member.")
+        message.reply_text("This user is already a Jupiter Solar Union member.")
         return ""
 
     data["whitelists"].append(user_id)
@@ -211,11 +211,11 @@ def addwhitelist(update: Update, context: CallbackContext) -> str:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + f"\nSuccessfully promoted {user_member.first_name} to Immunity Union!"
+        rt + f"\nSuccessfully promoted {user_member.first_name} to Jupiter Solar Union!"
     )
 
     log_message = (
-        f"#WHITELIST\n"
+        f"#JUPITER\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))} \n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -247,22 +247,22 @@ def addtiger(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DRAGONS:
-        rt += "This member is a Sudo Union member, Demoting to Weirdo."
+        rt += "This member is a Venus Solar Union member, Demoting to Mars."
         data["sudos"].remove(user_id)
         DRAGONS.remove(user_id)
 
     if user_id in DEMONS:
-        rt += "This user is already a Support Union member, Demoting to Weirdo."
+        rt += "This user is already a Earth Solar Union member, Demoting to Mars."
         data["supports"].remove(user_id)
         DEMONS.remove(user_id)
 
     if user_id in WOLVES:
-        rt += "This user is already a Immunity Union member, Demoting to Weirdo."
+        rt += "This user is already a Jupiter Solar Union member, Demoting to Mars."
         data["whitelists"].remove(user_id)
         WOLVES.remove(user_id)
 
     if user_id in TIGERS:
-        message.reply_text("This user is already a Weirdo.")
+        message.reply_text("This user is already a Mars Solar Union member.")
         return ""
 
     data["tigers"].append(user_id)
@@ -272,11 +272,11 @@ def addtiger(update: Update, context: CallbackContext) -> str:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + f"\nSuccessfully promoted {user_member.first_name} to Weirdo Union!"
+        rt + f"\nSuccessfully promoted {user_member.first_name} to Mars Solar Union!"
     )
 
     log_message = (
-        f"#TIGER\n"
+        f"#MARS\n"
         f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))} \n"
         f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
     )
@@ -315,7 +315,7 @@ def removesudo(update: Update, context: CallbackContext) -> str:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNSUDO\n"
+            f"#UNVENUS\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -326,7 +326,7 @@ def removesudo(update: Update, context: CallbackContext) -> str:
         return log_message
 
     else:
-        message.reply_text("This user is not a Sudo Union member!")
+        message.reply_text("This user is not a Venus Solar Union member!")
         return ""
 
 
@@ -358,7 +358,7 @@ def removesupport(update: Update, context: CallbackContext) -> str:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNSUPPORT\n"
+            f"#UNEARTH\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -369,7 +369,7 @@ def removesupport(update: Update, context: CallbackContext) -> str:
         return log_message
 
     else:
-        message.reply_text("This user is not a Support Union member!")
+        message.reply_text("This user is not a Earth Solar Union member!")
         return ""
 
 
@@ -401,7 +401,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNWHITELIST\n"
+            f"#UNJUPITER\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -411,7 +411,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not an Immunity Union member!")
+        message.reply_text("This user is not a Jupiter Solar Union member!")
         return ""
 
 
@@ -443,7 +443,7 @@ def removetiger(update: Update, context: CallbackContext) -> str:
             json.dump(data, outfile, indent=4)
 
         log_message = (
-            f"#UNTIGER\n"
+            f"#UNMARS\n"
             f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
             f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
         )
@@ -453,14 +453,14 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not a Weirdo!")
+        message.reply_text("This user is not a Mars Solar Union member!")
         return ""
 
 
 @run_async
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
-    reply = "<b>Known Immunity Union Members 🐺:</b>\n"
+    reply = "<b>Known Jupiter Solar Union Members 🌙:</b>\n"
     m = update.effective_message.reply_text(
         "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
     )
@@ -479,7 +479,7 @@ def whitelistlist(update: Update, context: CallbackContext):
 @run_async
 @whitelist_plus
 def tigerlist(update: Update, context: CallbackContext):
-    reply = "<b>Known Weirdo Union Members 🐯:</b>\n"
+    reply = "<b>Known Mars Solar Union Members 🌘:</b>\n"
     m = update.effective_message.reply_text(
         "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
     )
@@ -501,7 +501,7 @@ def supportlist(update: Update, context: CallbackContext):
     m = update.effective_message.reply_text(
         "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
     )
-    reply = "<b>Known Support Union Members 👹:</b>\n"
+    reply = "<b>Known Earth Solar Union Members 🌗:</b>\n"
     for each_user in DEMONS:
         user_id = int(each_user)
         try:
@@ -520,7 +520,7 @@ def sudolist(update: Update, context: CallbackContext):
         "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
     )
     true_sudo = list(set(DRAGONS) - set(DEV_USERS))
-    reply = "<b>Known Sudo Union Members 🐉:</b>\n"
+    reply = "<b>Known Venus Solar Union Members 🌖:</b>\n"
     for each_user in true_sudo:
         user_id = int(each_user)
         try:
@@ -539,7 +539,7 @@ def devlist(update: Update, context: CallbackContext):
         "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
     )
     true_dev = list(set(DEV_USERS) - {OWNER_ID})
-    reply = "<b>Known Dev Union Members ⚡️:</b>\n"
+    reply = "<b>Known Mercury Solar Union Members 🌕:</b>\n"
     for each_user in true_dev:
         user_id = int(each_user)
         try:
@@ -556,16 +556,16 @@ Commands listed here only work for users with special access are mainly used for
 Group admins/group owners do not need these commands. 
 
  ╔ *List all special users:*
- ╠ `/SudoU`*:* Lists all Sudo Union members
- ╠ `/SupportU`*:* Lists all Support Union members
- ╠ `/WeirdoU`*:* Lists all Weirdo Union members
- ╠ `/ImmU`*:* Lists all Immunity Union members
- ╠ `/DevU`*:* Lists all Dev Union members
- ╠ `/addsudo`*:* Adds a user to Sudo Union
- ╠ `/addsupport`*:* Adds a user to Support Union
- ╠ `/addweirdo`*:* Adds a user to Weirdo Union
- ╠ `/addwhitelist`*:* Adds a user to Immunity Union
- ╚ `Add dev doesnt exist, devs should know how to add themselves`
+ ╠ `/Venus`*:* Lists all Venus Solar Union members
+ ╠ `/Earth`*:* Lists all Earth Solar Union members
+ ╠ `/Mars`*:* Lists all Mars Solar Union members
+ ╠ `/Jupiter`*:* Lists all Jupiter Solar Union members
+ ╠ `/Mercury`*:* Lists all Mercury Solar Union members
+ ╠ `/addvenus`*:* Adds a user to Venus Solar Union
+ ╠ `/addearth`*:* Adds a user to Earth Solar Union
+ ╠ `/addmars`*:* Adds a user to Mars Solar Union
+ ╠ `/addwhitelist`*:* Adds a user to Jupiter Solar Union
+ ╚ `Add Mercury doesnt exist, devs should know how to add themselves`
 
  ╔ *Ping:*
  ╠ `/ping`*:* gets ping time of bot to telegram server
@@ -642,20 +642,20 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport)
-TIGER_HANDLER = CommandHandler(("addweirdo"), addtiger)
+SUDO_HANDLER = CommandHandler(("addsudo", "addvenus"), addsudo)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addearth"), addsupport)
+TIGER_HANDLER = CommandHandler(("addmars"), addtiger)
 WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addwolf"), addwhitelist)
-UNSUDO_HANDLER = CommandHandler(("removesudo", "removedragon"), removesudo)
-UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removedemon"), removesupport)
-UNTIGER_HANDLER = CommandHandler(("removeweirdo"), removetiger)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removevenus"), removesudo)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removeearth"), removesupport)
+UNTIGER_HANDLER = CommandHandler(("removemars"), removetiger)
 UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"), removewhitelist)
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "immU"], whitelistlist)
-TIGERLIST_HANDLER = CommandHandler(["weirdoU"], tigerlist)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "supportu"], supportlist)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "sudou"], sudolist)
-DEVLIST_HANDLER = CommandHandler(["devlist", "devu"], devlist)
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "jupiter"], whitelistlist)
+TIGERLIST_HANDLER = CommandHandler(["mars"], tigerlist)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "earth"], supportlist)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "venus"], sudolist)
+DEVLIST_HANDLER = CommandHandler(["devlist", "mercury"], devlist)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
@@ -688,5 +688,6 @@ __handlers__ = [
     SUDOLIST_HANDLER,
     DEVLIST_HANDLER,
 ]
+
 
 
