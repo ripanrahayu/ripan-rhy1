@@ -138,6 +138,10 @@ def check_afk(update, context, user_id, fst_name, userc_id):
             update.effective_message.reply_text(res, parse_mode="html")
 
 
+def __gdpr__(user_id):
+    sql.rm_afk(user_id)
+
+
 __help__ = """
  • `/afk <reason>`*:* mark yourself as AFK(away from keyboard).
  • `brb <reason>`*:* same as the afk command - but not a command.
