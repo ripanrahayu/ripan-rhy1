@@ -3,7 +3,7 @@ import re
 from typing import Optional
 
 import telegram
-from SayaBot import TIGERS, WOLVES, dispatcher
+from SayaBot import TIGERS, WOLVES, URANUS, dispatcher
 from SayaBot.modules.disable import DisableAbleCommandHandler
 from SayaBot.modules.helper_funcs.chat_status import (
     bot_admin,
@@ -63,7 +63,16 @@ def warn(
             message.reply_text("Mars Solar Union members cant be warned.")
         else:
             message.reply_text(
-                "A Mars Solar Union member triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
+                "A Mars Solar Union member triggered an auto warn filter!\n I can't warn them but they should avoid abusing this."
+            )
+        return
+
+    if user.id in URANUS:
+        if warner:
+            message.reply_text("I'm warning you, URANUS! JK, I can't really do that.")
+        else:
+            message.reply_text(
+                "A URANUS Solar Union member triggered an auto warn filter!\n I can't warn them but they should avoid abusing this."
             )
         return
 

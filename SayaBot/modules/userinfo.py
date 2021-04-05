@@ -19,6 +19,7 @@ from SayaBot import (
     DRAGONS,
     DEMONS,
     TIGERS,
+    URANUS,
     WOLVES,
     INFOPIC,
     dispatcher,
@@ -32,7 +33,7 @@ from SayaBot.modules.sql.afk_sql import is_afk, check_afk_status
 from SayaBot.modules.sql.users_sql import get_user_num_chats
 from SayaBot.modules.helper_funcs.chat_status import sudo_plus
 from SayaBot.modules.helper_funcs.extraction import extract_user
-from SayaBot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
+from SayaBot import telethn as SaitamaTelethonClient, TIGERS, URANUS, DRAGONS, DEMONS
 
 
 def no_by_per(totalhp, percentage):
@@ -303,6 +304,9 @@ def info(update: Update, context: CallbackContext):
         union_level_present = True
     elif user.id in WOLVES:
         text += "\n\nThe Solar Union level of this person is 'Jupiter'."
+        union_level_present = True
+    elif user.id in URANUS:
+        text += "\n\nThe Solar Union level of this person is 'URANUS'."
         union_level_present = True
 
     if union_level_present:

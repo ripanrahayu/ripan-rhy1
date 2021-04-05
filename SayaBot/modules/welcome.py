@@ -14,6 +14,7 @@ from SayaBot import (
     DRAGONS,
     DEMONS,
     TIGERS,
+    URANUS,
     WOLVES,
     sw,
     dispatcher,
@@ -252,6 +253,18 @@ def new_member(update: Update, context: CallbackContext):
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
                     f"A whitelisted user joined the chat"
+                )
+                continue
+
+            # Welcome URANUS
+            elif new_mem.id in URANUS:
+                update.effective_message.reply_text(
+                    "Oh no... here comes URANUS (Solar Union member)", reply_to_message_id=reply
+                )
+                welcome_log = (
+                    f"{html.escape(chat.title)}\n"
+                    f"#USER_JOINED\n"
+                    f"A URANUS Solar Union member joined the chat"
                 )
                 continue
 

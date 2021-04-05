@@ -106,6 +106,11 @@
          "required": false,
          "value": ""
       },
+      "URANUS": {
+         "description": "A space separated list of user IDs who you wanna assign as Uranus users.",
+         "required": false,
+         "value": ""
+      },
       "ENV": {
          "description": "Setting this to ANYTHING will enable environment variables. Leave it as it is",
          "value": "ANYTHING"
@@ -166,3 +171,4 @@
       
    }
 }
+

@@ -59,6 +59,11 @@ if ENV:
     except ValueError:
         raise Exception("Your tiger users list does not contain valid integers.")
 
+    try:
+        URANUS = set(int(x) for x in os.environ.get("URANUS", "").split())
+    except ValueError:
+        raise Exception("Your URANUS users list does not contain valid integers.")
+
     INFOPIC = bool(os.environ.get("INFOPIC", False))
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
     WEBHOOK = bool(os.environ.get("WEBHOOK", False))
@@ -125,6 +130,11 @@ else:
     except ValueError:
         raise Exception("Your tiger users list does not contain valid integers.")
 
+    try:
+        URANUS = set(int(x) for x in Config.URANUS or [])
+    except ValueError:
+        raise Exception("Your URANUS users list does not contain valid integers.")
+
     EVENT_LOGS = Config.EVENT_LOGS
     WEBHOOK = Config.WEBHOOK
     URL = Config.URL
@@ -178,6 +188,7 @@ DEV_USERS = list(DEV_USERS)
 WOLVES = list(WOLVES)
 DEMONS = list(DEMONS)
 TIGERS = list(TIGERS)
+URANUS = list(URANUS)
 
 # Load at end to ensure all prev variables have been set
 from SayaBot.modules.helper_funcs.handlers import (
@@ -190,4 +201,5 @@ from SayaBot.modules.helper_funcs.handlers import (
 tg.RegexHandler = CustomRegexHandler
 tg.CommandHandler = CustomCommandHandler
 tg.MessageHandler = CustomMessageHandler
+
 

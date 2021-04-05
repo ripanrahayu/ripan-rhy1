@@ -1,6 +1,6 @@
 import html
 
-from SayaBot import LOGGER, DRAGONS, TIGERS, WOLVES, dispatcher
+from SayaBot import LOGGER, DRAGONS, TIGERS, WOLVES, URANUS, dispatcher
 from SayaBot.modules.helper_funcs.chat_status import user_admin, user_not_admin
 from SayaBot.modules.log_channel import loggable
 from SayaBot.modules.sql import reporting_sql as sql
@@ -17,7 +17,7 @@ from telegram.ext import (
 from telegram.utils.helpers import mention_html
 
 REPORT_GROUP = 12
-REPORT_IMMUNE_USERS = DRAGONS + TIGERS + WOLVES
+REPORT_IMMUNE_USERS = DRAGONS + TIGERS + WOLVES + URANUS
 
 
 @run_async

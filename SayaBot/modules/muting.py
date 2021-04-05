@@ -1,7 +1,7 @@
 import html
 from typing import Optional
 
-from SayaBot import LOGGER, TIGERS, dispatcher
+from SayaBot import LOGGER, TIGERS, URANUS, dispatcher
 from SayaBot.modules.helper_funcs.chat_status import (
     bot_admin,
     can_restrict,
@@ -41,6 +41,10 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
 
     if is_user_admin(chat, user_id, member) or user_id in TIGERS:
         reply = "Can't. Find someone else to mute but not this one."
+        return reply
+
+    if is_user_admin(chat, user_id, member) or user_id in URANUS:
+        reply = "Umm... sorry but muting URANUS really isn't possible, have you tried doing it yourself?"
         return reply
 
     return None
@@ -256,4 +260,5 @@ dispatcher.add_handler(TEMPMUTE_HANDLER)
 
 __mod_name__ = "Muting"
 __handlers__ = [MUTE_HANDLER, UNMUTE_HANDLER, TEMPMUTE_HANDLER]
+
 

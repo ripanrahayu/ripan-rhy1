@@ -13,6 +13,7 @@ from SayaBot import (
     DEMONS,
     TIGERS,
     WOLVES,
+    URANUS,
     dispatcher,
 )
 from SayaBot.modules.disable import DisableAbleCommandHandler
@@ -80,7 +81,10 @@ def ban(update: Update, context: CallbackContext) -> str:
                 "Did you really just try to ban a member of the Mars Solar Union? Not possible."
             )
         elif user_id in WOLVES:
-            message.reply_text("I really wish I could ban users of the Jupiter Solar Union")
+            message.reply_text("I really wish I could ban users of the Jupiter Solar Union"
+            )
+        elif user_id in URANUS:
+            message.reply_text("Sorry but URANUS is protected against bans!")
         else:
             message.reply_text("This user has immunity and cannot be banned.")
         return log_message
@@ -263,6 +267,11 @@ def punch(update: Update, context: CallbackContext) -> str:
         message.reply_text("I really wish I could kick this user (Ծ‸ Ծ)")
         return log_message
 
+    if user_id in URANUS:
+        message.reply_text("I'm gonna kick URANUS (Solar Union member)! 🤭")
+        chat.unban_member(user_id)
+        return log_message
+
     res = chat.unban_member(user_id)  # unban on current user = kick
     if res:
         # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
@@ -295,6 +304,9 @@ def punchme(update: Update, context: CallbackContext):
     user_id = update.effective_message.from_user.id
     if is_user_admin(update.effective_chat, user_id):
         update.effective_message.reply_text("I wish I could... but you're an admin.")
+        return
+    if user_id in URANUS:
+        update.effective_message.reply_text("I think it's impossible for you to kick URANUS (Solar Union member).")
         return
 
     res = update.effective_chat.unban_member(user_id)  # unban on current user = kick

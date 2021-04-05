@@ -10,6 +10,7 @@ from SayaBot import (
     SUPPORT_CHAT,
     DEMONS,
     TIGERS,
+    URANUS,
     WOLVES,
     dispatcher,
 )
@@ -287,6 +288,73 @@ def addtiger(update: Update, context: CallbackContext) -> str:
     return log_message
 
 
+
+@run_async
+@sudo_plus
+@gloggable
+def adduranus(update: Update, context: CallbackContext) -> str:
+    message = update.effective_message
+    user = update.effective_user
+    chat = update.effective_chat
+    bot, args = context.bot, context.args
+    user_id = extract_user(message, args)
+    user_member = bot.getChat(user_id)
+    rt = ""
+
+    reply = check_user_id(user_id, bot)
+    if reply:
+        message.reply_text(reply)
+        return ""
+
+    with open(ELEVATED_USERS_FILE, "r") as infile:
+        data = json.load(infile)
+
+    if user_id in DRAGONS:
+        rt += "This member is a Venus Solar Union member, Demoting to URANUS."
+        data["sudos"].remove(user_id)
+        DRAGONS.remove(user_id)
+
+    if user_id in DEMONS:
+        rt += "This user is already a Earth Solar Union member, Demoting to URANUS."
+        data["supports"].remove(user_id)
+        DEMONS.remove(user_id)
+
+    if user_id in WOLVES:
+        rt += "This user is already a Jupiter Solar Union member, Demoting to URANUS."
+        data["whitelists"].remove(user_id)
+        WOLVES.remove(user_id)
+
+    if user_id in TIGERS:
+        rt += "This user is already a Mars Solar Union member, Demoting to URANUS."
+        data["whitelists"].remove(user_id)
+        WOLVES.remove(user_id)
+
+    if user_id in URANUS:
+        message.reply_text("This member is already a part of URANUS (Solar Union).")
+        return ""
+
+    data["uranus"].append(user_id)
+    URANUS.append(user_id)
+
+    with open(ELEVATED_USERS_FILE, "w") as outfile:
+        json.dump(data, outfile, indent=4)
+
+    update.effective_message.reply_text(
+        rt + f"\nSuccessfully added {user_member.first_name} to URANUS (Solar Union)!"
+    )
+
+    log_message = (
+        f"#URANUS\n"
+        f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))} \n"
+        f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
+    )
+
+    if chat.type != "private":
+        log_message = f"<b>{html.escape(chat.title)}:</b>\n" + log_message
+
+    return log_message
+
+
 @run_async
 @dev_plus
 @gloggable
@@ -457,6 +525,49 @@ def removetiger(update: Update, context: CallbackContext) -> str:
         return ""
 
 
+
+@run_async
+@sudo_plus
+@gloggable
+def removeuranus(update: Update, context: CallbackContext) -> str:
+    message = update.effective_message
+    user = update.effective_user
+    chat = update.effective_chat
+    bot, args = context.bot, context.args
+    user_id = extract_user(message, args)
+    user_member = bot.getChat(user_id)
+
+    reply = check_user_id(user_id, bot)
+    if reply:
+        message.reply_text(reply)
+        return ""
+
+    with open(ELEVATED_USERS_FILE, "r") as infile:
+        data = json.load(infile)
+
+    if user_id in URANUS:
+        message.reply_text("Demoting to normal user")
+        URANUS.remove(user_id)
+        data["uranus"].remove(user_id)
+
+        with open(ELEVATED_USERS_FILE, "w") as outfile:
+            json.dump(data, outfile, indent=4)
+
+        log_message = (
+            f"#UNURANUS\n"
+            f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
+            f"<b>User:</b> {mention_html(user_member.id, html.escape(user_member.first_name))}"
+        )
+
+        if chat.type != "private":
+            log_message = f"<b>{html.escape(chat.title)}:</b>\n" + log_message
+
+        return log_message
+    else:
+        message.reply_text("This user is not a part of URANUS (Solar Union)!")
+        return ""
+
+
 @run_async
 @whitelist_plus
 def whitelistlist(update: Update, context: CallbackContext):
@@ -485,6 +596,24 @@ def tigerlist(update: Update, context: CallbackContext):
     )
     bot = context.bot
     for each_user in TIGERS:
+        user_id = int(each_user)
+        try:
+            user = bot.get_chat(user_id)
+            reply += f"• {mention_html(user_id, html.escape(user.first_name))}\n"
+        except TelegramError:
+            pass
+    m.edit_text(reply, parse_mode=ParseMode.HTML)
+
+
+@run_async
+@whitelist_plus
+def uranuslist(update: Update, context: CallbackContext):
+    reply = "<b>Known URANUS Solar Union Members ☣️:</b>\n"
+    m = update.effective_message.reply_text(
+        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
+    )
+    bot = context.bot
+    for each_user in URANUS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
@@ -645,14 +774,17 @@ Visit @{SUPPORT_CHAT} for more information.
 SUDO_HANDLER = CommandHandler(("addsudo", "addvenus"), addsudo)
 SUPPORT_HANDLER = CommandHandler(("addsupport", "addearth"), addsupport)
 TIGER_HANDLER = CommandHandler(("addmars"), addtiger)
+URANUS_HANDLER = CommandHandler(("adduranus"), adduranus)
 WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addwolf"), addwhitelist)
 UNSUDO_HANDLER = CommandHandler(("removesudo", "removevenus"), removesudo)
 UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removeearth"), removesupport)
 UNTIGER_HANDLER = CommandHandler(("removemars"), removetiger)
+UNURANUS_HANDLER = CommandHandler(("removeuranus"), removeuranus)
 UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"), removewhitelist)
 
 WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "jupiter"], whitelistlist)
 TIGERLIST_HANDLER = CommandHandler(["mars"], tigerlist)
+URANUSLIST_HANDLER = CommandHandler(["uranus"], uranuslist)
 SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "earth"], supportlist)
 SUDOLIST_HANDLER = CommandHandler(["sudolist", "venus"], sudolist)
 DEVLIST_HANDLER = CommandHandler(["devlist", "mercury"], devlist)
@@ -660,14 +792,17 @@ DEVLIST_HANDLER = CommandHandler(["devlist", "mercury"], devlist)
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
 dispatcher.add_handler(TIGER_HANDLER)
+dispatcher.add_handler(URANUS_HANDLER)
 dispatcher.add_handler(WHITELIST_HANDLER)
 dispatcher.add_handler(UNSUDO_HANDLER)
 dispatcher.add_handler(UNSUPPORT_HANDLER)
 dispatcher.add_handler(UNTIGER_HANDLER)
+dispatcher.add_handler(UNURANUS_HANDLER)
 dispatcher.add_handler(UNWHITELIST_HANDLER)
 
 dispatcher.add_handler(WHITELISTLIST_HANDLER)
 dispatcher.add_handler(TIGERLIST_HANDLER)
+dispatcher.add_handler(URANUSLIST_HANDLER)
 dispatcher.add_handler(SUPPORTLIST_HANDLER)
 dispatcher.add_handler(SUDOLIST_HANDLER)
 dispatcher.add_handler(DEVLIST_HANDLER)
@@ -677,13 +812,16 @@ __handlers__ = [
     SUDO_HANDLER,
     SUPPORT_HANDLER,
     TIGER_HANDLER,
+    URANUS_HANDLER,
     WHITELIST_HANDLER,
     UNSUDO_HANDLER,
     UNSUPPORT_HANDLER,
     UNTIGER_HANDLER,
+    UNURANUS_HANDLER,
     UNWHITELIST_HANDLER,
     WHITELISTLIST_HANDLER,
     TIGERLIST_HANDLER,
+    URANUSLIST_HANDLER,
     SUPPORTLIST_HANDLER,
     SUDOLIST_HANDLER,
     DEVLIST_HANDLER,

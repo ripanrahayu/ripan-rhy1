@@ -27,6 +27,7 @@ from SayaBot import (
     DEMONS,
     TIGERS,
     WOLVES,
+    URANUS,
     sw,
     dispatcher,
 )
@@ -113,6 +114,10 @@ def gban(update: Update, context: CallbackContext):
 
     if int(user_id) in WOLVES:
         message.reply_text("That's a member of the Jupiter Solar Union! They cannot be banned!")
+        return
+
+    if int(user_id) in URANUS:
+        message.reply_text("URANUS prevents me from a gban.")
         return
 
     if user_id == bot.id:
@@ -516,7 +521,7 @@ def __user_info__(user_id):
         return ""
     if user_id == dispatcher.bot.id:
         return ""
-    if int(user_id) in DRAGONS + TIGERS + WOLVES:
+    if int(user_id) in DRAGONS + TIGERS + WOLVES + URANUS:
         return ""
     if is_gbanned:
         text = text.format("Yes")

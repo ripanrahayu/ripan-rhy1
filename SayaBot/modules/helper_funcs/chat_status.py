@@ -9,6 +9,7 @@ from SayaBot import (
     SUPPORT_CHAT,
     DEMONS,
     TIGERS,
+    URANUS,
     WOLVES,
     dispatcher,
 )
@@ -81,6 +82,7 @@ def is_user_ban_protected(chat: Chat, user_id: int, member: ChatMember = None) -
         or user_id in DEV_USERS
         or user_id in WOLVES
         or user_id in TIGERS
+        or user_id in URANUS
         or chat.all_members_are_administrators
         or user_id in [777000, 1087968824]
     ):  # Count telegram and Group Anonymous as admin
@@ -406,4 +408,5 @@ def connection_status(func):
 from SayaBot.modules import connection
 
 connected = connection.connected
+
 
