@@ -23,6 +23,7 @@ from SayaBot.modules.helper_funcs.chat_status import (
     connection_status,
     is_user_admin,
     is_user_ban_protected,
+    is_user_ban_protected2,
     is_user_in_chat,
     user_admin,
     user_can_ban,
@@ -63,7 +64,7 @@ def ban(update: Update, context: CallbackContext) -> str:
         message.reply_text("Oh yeah, ban myself, noob!")
         return log_message
 
-    if is_user_ban_protected(chat, user_id, member) and user not in DEV_USERS:
+    if is_user_ban_protected(chat, user_id, member) or is_user_ban_protected2(chat, user_id, member) and user not in DEV_USERS:
         if user_id == OWNER_ID:
             message.reply_text("Trying to put me against my creator, huh? Nice try")
         elif user_id in DEV_USERS:
@@ -174,6 +175,10 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
         return log_message
 
     if is_user_ban_protected(chat, user_id, member):
+        message.reply_text("I don't feel like it.")
+        return log_message
+
+    if is_user_ban_protected2(chat, user_id, member):
         message.reply_text("I don't feel like it.")
         return log_message
 
