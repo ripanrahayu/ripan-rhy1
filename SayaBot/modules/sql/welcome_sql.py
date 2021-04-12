@@ -16,6 +16,7 @@ DEFAULT_WELCOME_MESSAGES = [
     "A wild {first} appeared.",
     "{first} came in like a Lion!",
     "{first} has joined your party.",
+    "{first}... tatakae... tatakae...",
     "{first} just joined. Can I get a heal?",
     "{first} just joined the chat - asdgfhak!",
     "{first} just joined. Everyone, look busy!",
