@@ -5,15 +5,9 @@ import textwrap
 import bs4
 import jikanpy
 import requests
-<<<<<<< HEAD:SayaBot/modules/anime.py
 from SayaBot import dispatcher
 from SayaBot.modules.disable import DisableAbleCommandHandler
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update
-=======
-from SaitamaRobot import dispatcher
-from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode, Update, Message
->>>>>>> 353119f... [anime] You can reply to text instead of passing an extra argument:SaitamaRobot/modules/anime.py
 from telegram.ext import CallbackContext, run_async
 
 info_btn = "More Information"
