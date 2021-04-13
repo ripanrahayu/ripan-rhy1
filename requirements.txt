@@ -32,10 +32,6 @@ pyrate-limiter
 cachetools
 ujson
 pretty_errors
-<<<<<<< HEAD
 youtube_dl
 youtube-search-python
 
-=======
-humanize
->>>>>>> 1845b82... Add 'last seen' to AFK reply messages
