@@ -35,3 +35,8 @@ pretty_errors
 youtube_dl
 youtube-search-python
 pytz
+hachoir
+pybase64
+pySmartDL
+validators
+bs4
