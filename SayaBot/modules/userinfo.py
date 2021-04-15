@@ -7,8 +7,8 @@ from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from telethon import events
 
-from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update
-from telegram.ext import CallbackContext, CommandHandler
+from telegram import MAX_MESSAGE_LENGTH, ParseMode, Update, MessageEntity
+from telegram.ext import CallbackContext, CommandHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
@@ -25,7 +25,8 @@ from SayaBot import (
     dispatcher,
     sw,
 )
-from SayaBot.__main__ import STATS, TOKEN, USER_INFO
+
+from SayaBot.__main__ import STATS, GDPR, TOKEN, USER_INFO
 import SayaBot.modules.sql.userinfo_sql as sql
 from SayaBot.modules.disable import DisableAbleCommandHandler
 from SayaBot.modules.sql.global_bans_sql import is_user_gbanned
@@ -134,9 +135,9 @@ def get_id(update: Update, context: CallbackContext):
             user2 = message.reply_to_message.forward_from
 
             msg.reply_text(
-                f"<b>Telegram ID:</b>,"
-                f"• {html.escape(user2.first_name)} - <code>{user2.id}</code>.\n"
-                f"• {html.escape(user1.first_name)} - <code>{user1.id}</code>.",
+                f"<b>Telegram ID</b>\n"
+                f"• {html.escape(user2.first_name)}: <code>{user2.id}</code>\n"
+                f"• {html.escape(user1.first_name)}: <code>{user1.id}</code>",
                 parse_mode=ParseMode.HTML,
             )
 
@@ -152,12 +153,12 @@ def get_id(update: Update, context: CallbackContext):
 
         if chat.type == "private":
             msg.reply_text(
-                f"Your id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML
+                f"Your id is <code>{chat.id}</code>", parse_mode=ParseMode.HTML
             )
 
         else:
             msg.reply_text(
-                f"This group's id is <code>{chat.id}</code>.", parse_mode=ParseMode.HTML
+                f"This group's id is <code>{chat.id}</code>", parse_mode=ParseMode.HTML
             )
 
 
@@ -508,6 +509,22 @@ def set_about_bio(update: Update, context: CallbackContext):
         message.reply_text("Reply to someone to set their bio!")
 
 
+@run_async
+def gdpr(update: Update, context: CallbackContext):
+    update.effective_message.reply_text("Deleting identifiable data...")
+    for mod in GDPR:
+        mod.__gdpr__(update.effective_user.id)
+
+    update.effective_message.reply_text("Your personal data has been deleted.\n\nNote that this will not unban "
+                                        "you from any chats, as that is telegram data, not SayaBot data. "
+                                        "Flooding, warns, and gbans are also preserved, as of "
+                                        "[this](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/), "
+                                        "which clearly states that the right to erasure does not apply "
+                                        "\"for the performance of a task carried out in the public interest\", as is "
+                                        "the case for the aforementioned pieces of data.",
+                                        parse_mode=ParseMode.MARKDOWN)
+
+
 def __user_info__(user_id):
     bio = html.escape(sql.get_user_bio(user_id) or "")
     me = html.escape(sql.get_user_me_info(user_id) or "")
@@ -518,6 +535,11 @@ def __user_info__(user_id):
         result += f"<b>What others say:</b>\n{bio}\n"
     result = result.strip("\n")
     return result
+
+
+def __gdpr__(user_id):
+    sql.clear_user_info(user_id)
+    sql.clear_user_bio(user_id)
 
 
 __help__ = """
@@ -534,14 +556,15 @@ Examples:
 
 *Information others add on you:* 
  • `/bio`*:* will get your or another user's bio. This cannot be set by yourself.
-• `/setbio <text>`*:* while replying, will save another user's bio 
+ • `/setbio <text>`*:* while replying, will save another user's bio 
 Examples:
  `/bio @username(defaults to yours if not specified).`
  `/setbio This user is a wolf` (reply to the user)
 
 *Overall Information about you:*
  • `/info`*:* get information about a user. 
- 
+*Guide to the General Data Protection Regulation (GDPR):*
+ • `/gdpr`*:* deletes your information from the bot's database. Private chats only.
 *What is that health thingy?*
  Come and see [HP System explained](https://t.me/SayaBotSupport/565)
 """
@@ -553,6 +576,7 @@ STATS_HANDLER = CommandHandler("stats", stats)
 ID_HANDLER = DisableAbleCommandHandler("id", get_id)
 GIFID_HANDLER = DisableAbleCommandHandler("gifid", gifid)
 INFO_HANDLER = DisableAbleCommandHandler(("info", "book"), info)
+GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.chat_type.private)
 
 SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me)
 GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me)
@@ -561,17 +585,19 @@ dispatcher.add_handler(STATS_HANDLER)
 dispatcher.add_handler(ID_HANDLER)
 dispatcher.add_handler(GIFID_HANDLER)
 dispatcher.add_handler(INFO_HANDLER)
+dispatcher.add_handler(GDPR_HANDLER)
 dispatcher.add_handler(SET_BIO_HANDLER)
 dispatcher.add_handler(GET_BIO_HANDLER)
 dispatcher.add_handler(SET_ABOUT_HANDLER)
 dispatcher.add_handler(GET_ABOUT_HANDLER)
 
 __mod_name__ = "Info"
-__command_list__ = ["setbio", "bio", "setme", "me", "info"]
+__command_list__ = ["setbio", "bio", "setme", "me", "info", "gprd"]
 __handlers__ = [
     ID_HANDLER,
     GIFID_HANDLER,
     INFO_HANDLER,
+    GDPR_HANDLER,
     SET_BIO_HANDLER,
     GET_BIO_HANDLER,
     SET_ABOUT_HANDLER,
