@@ -509,6 +509,7 @@ def set_about_bio(update: Update, context: CallbackContext):
         message.reply_text("Reply to someone to set their bio!")
 
 
+@run_async
 def gdpr(update: Update, context: CallbackContext):
     update.effective_message.reply_text("Deleting identifiable data...")
     for mod in GDPR:
@@ -555,40 +556,27 @@ Examples:
 
 *Information others add on you:* 
  • `/bio`*:* will get your or another user's bio. This cannot be set by yourself.
-• `/setbio <text>`*:* while replying, will save another user's bio 
+ • `/setbio <text>`*:* while replying, will save another user's bio 
 Examples:
  `/bio @username(defaults to yours if not specified).`
  `/setbio This user is a wolf` (reply to the user)
 
 *Overall Information about you:*
-<<<<<<< HEAD:SayaBot/modules/userinfo.py
  • `/info`*:* get information about a user. 
- 
-*What is that health thingy?*
- Come and see [HP System explained](https://t.me/SayaBotSupport/565)
-=======
- • `/info`*:* get information about a user.
-
 *Guide to the General Data Protection Regulation (GDPR):*
  • `/gdpr`*:* deletes your information from the bot's database. Private chats only.
->>>>>>> d46df1a... astrakobot: add the /gdpr command:AstrakoBot/modules/userinfo.py
+*What is that health thingy?*
+ Come and see [HP System explained](https://t.me/SayaBotSupport/565)
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
 GET_BIO_HANDLER = DisableAbleCommandHandler("bio", about_bio)
 
-<<<<<<< HEAD:SayaBot/modules/userinfo.py
 STATS_HANDLER = CommandHandler("stats", stats)
 ID_HANDLER = DisableAbleCommandHandler("id", get_id)
 GIFID_HANDLER = DisableAbleCommandHandler("gifid", gifid)
 INFO_HANDLER = DisableAbleCommandHandler(("info", "book"), info)
-=======
-STATS_HANDLER = CommandHandler("stats", stats, run_async=True)
-ID_HANDLER = DisableAbleCommandHandler("id", get_id, run_async=True)
-GIFID_HANDLER = DisableAbleCommandHandler("gifid", gifid, run_async=True)
-INFO_HANDLER = DisableAbleCommandHandler(("info", "book"), info, run_async=True)
-GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.chat_type.private, run_async=True)
->>>>>>> d46df1a... astrakobot: add the /gdpr command:AstrakoBot/modules/userinfo.py
+GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.chat_type.private)
 
 SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me)
 GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me)
