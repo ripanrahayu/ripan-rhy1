@@ -422,21 +422,12 @@ __help__ = """
  • `/kick <userhandle>`*:* Kicks a user out of the group, (via handle, or reply)
 """
 
-<<<<<<< HEAD:SayaBot/modules/bans.py
 BAN_HANDLER = CommandHandler(["ban", "sban"], ban)
-TEMPBAN_HANDLER = CommandHandler(["tban"], temp_ban)
+TEMPBAN_HANDLER = CommandHandler("tban", temp_ban)
 PUNCH_HANDLER = CommandHandler("kick", punch)
 UNBAN_HANDLER = CommandHandler("unban", unban)
 ROAR_HANDLER = CommandHandler("roar", selfunban)
 PUNCHME_HANDLER = DisableAbleCommandHandler("kickme", punchme, filters=Filters.group)
-=======
-BAN_HANDLER = DisableAbleCommandHandler(["ban", "sban"], ban, run_async=True)
-TEMPBAN_HANDLER = DisableAbleCommandHandler("tban", temp_ban, run_async=True)
-PUNCH_HANDLER = DisableAbleCommandHandler(["punch", "kick"], punch, run_async=True)
-UNBAN_HANDLER = DisableAbleCommandHandler("unban", unban, run_async=True)
-ROAR_HANDLER = DisableAbleCommandHandler("roar", selfunban, run_async=True)
-PUNCHME_HANDLER = DisableAbleCommandHandler(["punchme", "kickme"], punchme, filters=Filters.chat_type.groups, run_async=True)
->>>>>>> eb4c8dd... bans: cleanup:AstrakoBot/modules/bans.py
 
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
