@@ -562,7 +562,10 @@ Examples:
  `/setbio This user is a wolf` (reply to the user)
 
 *Overall Information about you:*
- • `/info`*:* get information about a user. 
+ 
+*What is that health thingy?*
+ Come and see [HP System explained](https://t.me/SayaBotSupport/565)
+ • `/info`*:* get information about a user.
 *Guide to the General Data Protection Regulation (GDPR):*
  • `/gdpr`*:* deletes your information from the bot's database. Private chats only.
 *What is that health thingy?*
@@ -576,7 +579,7 @@ STATS_HANDLER = CommandHandler("stats", stats)
 ID_HANDLER = DisableAbleCommandHandler("id", get_id)
 GIFID_HANDLER = DisableAbleCommandHandler("gifid", gifid)
 INFO_HANDLER = DisableAbleCommandHandler(("info", "book"), info)
-GDPR_HANDLER = CommandHandler("gdpr", gdpr, filters=Filters.chat_type.private)
+GDPR_HANDLER = CommandHandler("gdpr", gdpr)
 
 SET_ABOUT_HANDLER = DisableAbleCommandHandler("setme", set_about_me)
 GET_ABOUT_HANDLER = DisableAbleCommandHandler("me", about_me)
