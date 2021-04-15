@@ -562,9 +562,6 @@ Examples:
  `/setbio This user is a wolf` (reply to the user)
 
 *Overall Information about you:*
- 
-*What is that health thingy?*
- Come and see [HP System explained](https://t.me/SayaBotSupport/565)
  • `/info`*:* get information about a user.
 *Guide to the General Data Protection Regulation (GDPR):*
  • `/gdpr`*:* deletes your information from the bot's database. Private chats only.
