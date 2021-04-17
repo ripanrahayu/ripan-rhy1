@@ -149,18 +149,15 @@ async def process(v_url, dtype, opts):
 @telethn.on(events.NewMessage(pattern="^[!/]song(.*)"))
 async def song(v_url):
     opts = {
-        "format": "bestaudio",
+        "format": "bestaudio/best",
         "addmetadata": True,
-        "key": "FFmpegMetadata",
-        "writethumbnail": True,
-        "prefer_ffmpeg": True,
         "geo_bypass": True,
         "nocheckcertificate": True,
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
-                "preferredquality": "320",
+                "preferredquality": "128",
             }
         ],
         "outtmpl": "%(id)s.mp3",
@@ -206,3 +203,4 @@ dispatcher.add_handler(SONG_HANDLER)
 dispatcher.add_handler(VIDEO_HANDLER)
 
 __handlers__ = [SONG_HANDLER, VIDEO_HANDLER]
+
