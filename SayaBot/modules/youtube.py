@@ -105,7 +105,7 @@ def youtube_callback(update: Update, context: CallbackContext):
                 context.dispatcher.run_async(delete, deltext, 0)
             except:
                 delmsg = message.edit_text(
-                    "Song is too large for processing, or any other error happened. Try again later"
+                    "Song is too large for processing, or any other error happened. Try again later or you can try /song 'song name'"
                 )
 
     elif media_type == "video":
@@ -143,7 +143,7 @@ def youtube_callback(update: Update, context: CallbackContext):
                 context.dispatcher.run_async(delete, deltext, 0)
             except:
                 delmsg = message.edit_text(
-                    "Video is too large for processing, or any other error happened. Try again later"
+                    "Video is too large for processing, or any other error happened. Try again later or you can also try /video 'video name'"
                 )
     else:
         delmsg = message.edit_text("Canceling...")
