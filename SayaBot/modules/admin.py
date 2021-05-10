@@ -120,6 +120,15 @@ def demote(update: Update, context: CallbackContext) -> str:
     chat = update.effective_chat
     message = update.effective_message
     user = update.effective_user
+    
+    demoter = chat.get_member(user.id)
+
+    if (
+        not (demoter.can_promote_members or demoter.status == "creator")
+        and user.id not in SUDO_USERS
+    ):
+        message.reply_text("You don't have the necessary rights to do that!")
+        return
 
     user_id = extract_user(message, args)
     if not user_id:
